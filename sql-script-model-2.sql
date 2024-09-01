@@ -1,3 +1,10 @@
+CREATE TABLE dim_Pedido (                          				--Criando tabela dim_Pedido
+	order_id						VARCHAR(50) PRIMARY KEY,
+	seller_id						VARCHAR(50),
+	order_item_id					INT,
+	order_status					VARCHAR(20)
+);
+
 CREATE TABLE dim_Cliente (                          				--Criando tabela dim_Cliente
 	customer_id						VARCHAR(50) PRIMARY KEY,
 	customer_unique_id				VARCHAR(50),
@@ -18,6 +25,16 @@ CREATE TABLE dim_Produto (                          				--Criando tabela dim_Pro
 	product_width_cm				INT
 );
 
+CREATE TABLE dim_Pagamento (                          				--Criando tabela dim_Pagamento
+	order_id						VARCHAR(50) PRIMARY KEY,
+	price							DECIMAL(10, 2),
+	freight_value					DECIMAL(10, 2),
+	payment_sequential				INT,
+	payment_type					VARCHAR(20),
+	payment_installments			INT,
+	payment_value					DECIMAL(10, 2)
+);
+
 CREATE TABLE dim_Avaliacao (                          				--Criando tabela dim_Avaliacao
 	review_id						VARCHAR(50) PRIMARY KEY,
 	review_score					INT,
@@ -25,18 +42,14 @@ CREATE TABLE dim_Avaliacao (                          				--Criando tabela dim_A
 	review_comment_message			VARCHAR(255)
 );
 
-CREATE TABLE dim_Pedido (                          				--Criando tabela dim_Pedido
+CREATE TABLE dim_Tempo (                          					--Criando tabela dim_Tempo
 	order_id						VARCHAR(50) PRIMARY KEY,
-	seller_id						VARCHAR(50),
-	order_item_id					INT,
-	order_status					VARCHAR(20),
-	product_id						VARCHAR(50),
-	price							DECIMAL(10, 2),
-	freight_value					DECIMAL(10, 2),
-	payment_sequential				INT,
-	payment_type					VARCHAR(20),
-	payment_installments			INT,
-	payment_value					DECIMAL(10, 2
+	order_purchase_timestamp		TIMESTAMP,
+	order_approved_at				TIMESTAMP,
+	order_delivered_carrier_date 	TIMESTAMP,
+	order_delivered_customer_date 	TIMESTAMP,
+	order_estimated_delivery_date 	TIMESTAMP,
+	shipping_limit_date				TIMESTAMP
 );
 
 CREATE TABLE fact_Venda (                          				--Criando tabela fact_Venda
@@ -45,13 +58,9 @@ CREATE TABLE fact_Venda (                          				--Criando tabela fact_Ven
 	customer_id						VARCHAR(50),
 	product_id						VARCHAR(50),
 	review_id						VARCHAR(50),
-	order_purchase_timestamp		TIMESTAMP,
-	order_approved_at				TIMESTAMP,
-	order_delivered_carrier_date 	TIMESTAMP,
-	order_delivered_customer_date 	TIMESTAMP,
-	order_estimated_delivery_date 	TIMESTAMP,
-	shipping_limit_date				TIMESTAMP,
 	FOREIGN KEY (order_id) REFERENCES dim_Pedido(order_id),
+	FOREIGN KEY (order_id) REFERENCES dim_Pagamento(order_id),
+	FOREIGN KEY (order_id) REFERENCES dim_Tempo(order_id),
 	FOREIGN KEY (customer_id) REFERENCES dim_Cliente(customer_id),
 	FOREIGN KEY (product_id) REFERENCES dim_Produto(product_id),
 	FOREIGN KEY (review_id) REFERENCES dim_Avaliacao(review_id)
