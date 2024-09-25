@@ -32,7 +32,7 @@ def insert_dim_order_data():
             'freight_value' : order_items_df ['freight_value']
         })
     order_df = order_df.dropna(how="any")
-    order_df = order_df.drop_duplicates(subset='order_id')
+    order_df = order_df.drop_duplicates(subset='order_id', keep='first')
     #Inserting data from orders_df into dim_order
     for index, row in order_df.iterrows():
         cursor.execute('INSERT INTO dim_order (order_id, order_status, price, freight_value) VALUES (%s, %s, %s, %s)', (row.order_id, row.order_status, row.price, row.freight_value))

@@ -11,19 +11,19 @@ def main():
     create_dim_customer()
     create_dim_order()
     create_dim_payment()
-    # create_dim_product()
+    create_dim_product()
     create_dim_review()
     create_dim_time()
-    # create_fact_sales()
+    create_fact_sales()
 
     #Inserting data into tables
     insert_dim_customer_data()
     insert_dim_order_data()
     insert_dim_payment_data()
-    # insert_dim_product_data()
+    insert_dim_product_data()
     insert_dim_review_data()
     insert_dim_time_data()
-    # insert_fact_sales_data()
+    insert_fact_sales_data()
 
 
 if __name__ == "__main__":

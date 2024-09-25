@@ -29,7 +29,7 @@ def insert_dim_review_data():
             'review_comment_title' : order_reviews_df ['review_comment_title'],
             'review_comment_message' : order_reviews_df ['review_comment_message']
     })
-    review_df = review_df.drop_duplicates()
+    review_df = review_df.drop_duplicates(keep='first')
     review_df['review_comment_title'] = review_df['review_comment_title'].fillna('Título da avaliação')
     review_df['review_comment_message'] = review_df['review_comment_message'].fillna('Sem mensagem de avaliação')
     #Inserting data into dim_review

@@ -23,7 +23,7 @@ def insert_dim_customer_data():
     cursor = conn.cursor()
     #Loading customers_dataset.csv data
     customers_df = pd.read_csv('C://Users/Main/Projetos/desafio-i/dataset/olist_customers_dataset.csv')
-    customers_df = customers_df.drop_duplicates(subset='customer_unique_id')
+    customers_df = customers_df.drop_duplicates(subset='customer_unique_id', keep='first')
     #Inserting data into dim_customer
     for index, row in customers_df.iterrows():
         cursor.execute('INSERT INTO dim_customer (customer_unique_id, customer_id, customer_zip_code_prefix, customer_city, customer_state) VALUES (%s, %s, %s, %s, %s)', (row.customer_unique_id, row.customer_id, row.customer_zip_code_prefix, row.customer_city, row.customer_state))

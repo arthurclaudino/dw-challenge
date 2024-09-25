@@ -13,7 +13,7 @@ def create_dim_product():
                 product_description_lenght		INT,
                 product_photos_qty				INT,
                 product_weight_g				INT,
-                product_lenght_cm				INT,
+                product_length_cm				INT,
                 product_height_cm				INT,
                 product_width_cm				INT)
 ''')
@@ -32,7 +32,7 @@ def insert_dim_product_data():
     products_df[numeric_cols] = products_df[numeric_cols].fillna(products_df[numeric_cols].mean())
     #Inserting data into dim_product
     for index, row in products_df.iterrows():
-        cursor.execute('INSERT INTO dim_product (product_id, product_category_name, product_name_lenght, product_description_lenght, product_photos_qty, product_weight_g, product_lenght_cm, product_height_cm, product_width_cm) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', (row.product_id, row.product_category_name, row.product_name_lenght, row.product_description_lenght, row.product_photos_qty, row.product_weight_g, row.product_lenght_cm, row.product_height_cm, row.product_width_cm))
+        cursor.execute('INSERT INTO dim_product (product_id, product_category_name, product_name_lenght, product_description_lenght, product_photos_qty, product_weight_g, product_length_cm, product_height_cm, product_width_cm) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)', (row.product_id, row.product_category_name, row.product_name_lenght, row.product_description_lenght, row.product_photos_qty, row.product_weight_g, row.product_length_cm, row.product_height_cm, row.product_width_cm))
     conn.commit()
     cursor.close()
     conn.close()

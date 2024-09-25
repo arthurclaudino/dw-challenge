@@ -23,7 +23,7 @@ def insert_dim_payment_data():
     cursor = conn.cursor()
     #Loading order_payments_dataset.csv data
     payments_df = pd.read_csv('C://Users/Main/Projetos/desafio-i/dataset/olist_order_payments_dataset.csv')
-    payments_df = payments_df.drop_duplicates(subset='order_id')
+    payments_df = payments_df.drop_duplicates(subset='order_id', keep='first')
     #Inserting data into dim_payment
     for index, row in payments_df.iterrows():
         cursor.execute('INSERT INTO dim_payment (order_id, payment_sequential, payment_type, payment_installments, payment_value) VALUES (%s, %s, %s, %s, %s)', (row.order_id, row.payment_sequential, row.payment_type, row.payment_installments, row.payment_value))
